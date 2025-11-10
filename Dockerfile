@@ -1,12 +1,12 @@
 # ---------- Build Stage ----------
-FROM node:18-bullseye-slim AS build
+FROM node:20-bullseye-slim AS build
 
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (lebih laju sebab semua compatible)
+# Install dependencies
 RUN npm install
 
 # Copy semua source code
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # ---------- Production Stage ----------
-FROM node:18-bullseye-slim
+FROM node:20-bullseye-slim
 
 WORKDIR /app
 
