@@ -1,5 +1,4 @@
 import { type Language } from '../types';
-import { TRIAL_USAGE_LIMIT } from './aiConfig';
 
 const translations = {
     en: {
@@ -27,20 +26,6 @@ const translations = {
         apiKeyRequiredBody: "An active API key is needed to use this feature. Please go to Settings > API & Integrations to add your key.",
         subscriptionExpiredTitle: "Subscription Expired",
         subscriptionExpiredBody: "Your subscription has expired. Please renew your plan to continue using our AI features.",
-        trialTitle: "⚠️ Trial Mode Ended",
-        trialEndedBody: `You have used up your trial credits for this feature.
-To continue enjoying full access to all MONOklix Studio features, please upgrade your account to the full version. 🚀
-[BUTTON]Register for a Full Account[URL]https://monoklix.com/step/monoklix-checkout/
-After upgrading, you will get unlimited access to all features including:
-
-Unlimited storyboard video creation 🎬
-Full AI & VEO integration ⚡
-Unrestricted project saving and exporting 📂
-
-Thank you for trying MONOklix Studio!`,
-        trialRestrictedBody: `This feature is not available in trial mode.
-To unlock this and all other advanced features, please upgrade to the full version.
-[BUTTON]Register for a Full Account[URL]https://monoklix.com/step/monoklix-checkout/`,
         sidebar: {
             home: "e-Tutorial",
             homeDesc: "Learn Content Strategy",
@@ -103,7 +88,7 @@ To unlock this and all other advanced features, please upgrade to the full versi
                 ul: [
                     "Staff MONOklix: A team of specialized AI agents. Choose an agent (like a Market Researcher or Copywriter), provide your input, and get expert-level output for specific tasks.",
                     "Content Ideas: Overcome creative blocks by entering a topic. The AI uses Google Search to find current trends and generates 5 fresh content ideas with titles and descriptions.",
-                    "Marketing Copy: Generate persuasive copy for ads, social media, or websites. Just describe your product, target audience, and desired tone.",
+                    "Marketing Copy: Craft persuasive copy for ads, social media, or websites. Just describe your product, target audience, and desired tone.",
                     "Product Ad Storyline: The perfect starting point for a video ad. Upload a product image, write a brief description, and the AI will generate a complete 1-scene storyboard concept."
                 ]
             },
@@ -433,8 +418,6 @@ To unlock this and all other advanced features, please upgrade to the full versi
             visualEffect: 'Visual Effect',
             generateStoryboardButton: 'Generate Storyboard',
             resetButton: 'Reset All',
-            trialUsageStatus: `Trial Usage: {used}/${TRIAL_USAGE_LIMIT} storyboards generated.`,
-            trialLimitError: 'You have reached your trial limit for this feature.',
             errorAllFields: 'Please upload the required images and provide a product description.',
             errorUnknown: 'An unknown error occurred while updating usage.',
             outputTitle: 'Generated Storyboard',
@@ -637,7 +620,7 @@ To unlock this and all other advanced features, please upgrade to the full versi
             title: 'Batch Video Processor',
             subtitle: 'Generate multiple videos from a list of prompts.',
             initialLog: 'Engine ready. Upload a file to begin.',
-            promptsLoaded: '{count} items loaded from {fileName}.',
+            promptsLoaded: '{count} prompts loaded from {fileName}.',
             processStarting: 'Starting batch process for {count} items...',
             processCancelled: 'Process cancelled by user.',
             processingPrompt: 'Processing [{current}/{total}]: {prompt}',
@@ -748,20 +731,6 @@ To unlock this and all other advanced features, please upgrade to the full versi
         apiKeyRequiredBody: "Kunci API yang aktif diperlukan untuk menggunakan ciri ini. Sila pergi ke Tetapan > API & Integrasi untuk menambah kunci anda.",
         subscriptionExpiredTitle: "Langganan Tamat Tempoh",
         subscriptionExpiredBody: "Langganan anda telah tamat tempoh. Sila perbaharui pelan anda untuk terus menggunakan ciri AI kami.",
-        trialTitle: "⚠️ Mod Percubaan Telah Tamat",
-        trialEndedBody: `Anda telah menggunakan kredit percubaan anda untuk ciri ini.
-Untuk terus menikmati akses penuh ke semua ciri MONOklix Studio, sila naik taraf akaun anda ke versi penuh. 🚀
-[BUTTON]Daftar untuk Akaun Penuh[URL]https://monoklix.com/step/monoklix-checkout/
-Selepas menaik taraf, anda akan mendapat akses tanpa had ke semua ciri termasuk:
-
-Penciptaan video papan cerita tanpa had 🎬
-Integrasi penuh AI & VEO ⚡
-Penyimpanan dan pengeksportan projek tanpa had 📂
-
-Terima kasih kerana mencuba MONOklix Studio!`,
-        trialRestrictedBody: `Ciri ini tidak tersedia dalam mod percubaan.
-Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke versi penuh.
-[BUTTON]Daftar untuk Akaun Penuh[URL]https://monoklix.com/step/monoklix-checkout/`,
         sidebar: {
             home: "e-Tutorial",
             homeDesc: "Belajar Strategi Konten",
@@ -1034,7 +1003,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
                 sub11_4_p2: "Untuk sebarang soalan berkaitan pengebilan, sila rujuk dokumentasi rasmi Google atau hubungi `Sokongan AI` kami untuk panduan."
             },
             chapter12: {
-                title: "Terima kasih kerana menggunakan MONOklix.com! Kami berharap alat ini memperkasakan kreativiti anda."
+                title: "Terima kasih kerana menggunakan MONOklix.com! Kami berharap alat ini dapat memperkasakan kreativiti anda."
             }
         },
         libraryView: {
@@ -1044,17 +1013,17 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
         imageGenerationView: {
             title: 'Penjana Imej AI',
             titleEdit: 'Penyunting Imej AI',
-            subtitle: 'Cipta imej yang menakjubkan daripada penerangan teks.',
-            subtitleEdit: 'Edit imej anda dengan arahan teks yang mudah.',
+            subtitle: 'Cipta imej yang menakjubkan dari deskripsi teks.',
+            subtitleEdit: 'Sunting imej anda dengan arahan teks yang mudah.',
             refImagesLabel: 'Imej Rujukan / Sumber (sehingga 5)',
             upload: 'Muat Naik',
-            editingModeNotice: 'Anda berada dalam <strong>Mod Penyuntingan Imej</strong>. Prompt akan digunakan sebagai arahan untuk mengedit imej sumber.',
-            refImagesHelp: 'Muat naik imej untuk diedit atau digabungkan dengan prompt anda.',
+            editingModeNotice: 'Anda dalam <strong>Mod Penyuntingan Imej</strong>. Prompt akan digunakan sebagai arahan untuk menyunting imej sumber.',
+            refImagesHelp: 'Muat naik imej untuk disunting atau digabungkan dengan prompt anda.',
             promptLabel: 'Prompt',
             promptPlaceholder: 'cth., Seekor kucing comel memakai cermin mata hitam, gaya sinematik...',
             promptPlaceholderEdit: 'cth., Tukar latar belakang ke pantai...',
-            advancedEditor: 'Pembina Prompt Lanjutan',
-            advancedEditorHelp: 'Pilih pilihan untuk menambahkannya pada prompt anda. Dilumpuhkan dalam mod penyuntingan.',
+            advancedEditor: 'Pembina Prompt Terperinci',
+            advancedEditorHelp: 'Pilih opsyen untuk menambahkannya ke prompt anda. Dilumpuhkan dalam mod penyuntingan.',
             style: 'Gaya',
             lighting: 'Pencahayaan',
             cameraAngle: 'Sudut Kamera',
@@ -1073,11 +1042,11 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             reEdit: 'Sunting Semula',
             createVideo: 'Cipta Video',
             download: 'Muat Turun',
-            outputPlaceholder: 'Imej janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Imej yang anda jana akan muncul di sini.',
         },
         videoGenerationView: {
             title: 'Penjana Video AI',
-            subtitle: 'Cipta video berkualiti tinggi daripada teks atau imej.',
+            subtitle: 'Cipta video berkualiti tinggi dari teks atau imej.',
             modelFormat: 'Model & Format',
             aiModel: 'Model AI',
             aspectRatio: 'Nisbah Aspek',
@@ -1086,8 +1055,8 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             uploadImage: 'Muat Naik Imej Permulaan',
             refImageNote: 'AI akan menggunakan imej ini sebagai titik permulaan untuk video.',
             mainPrompt: 'Prompt Utama',
-            mainPromptPlaceholder: 'cth., Sebuah bandar futuristik dengan kereta terbang pada waktu matahari terbenam...',
-            creativeDirection: 'Hala Tuju Kreatif',
+            mainPromptPlaceholder: 'cth., Sebuah bandar futuristik dengan kereta terbang pada waktu senja...',
+            creativeDirection: 'Arahan Kreatif',
             style: 'Gaya Artistik',
             lighting: 'Pencahayaan',
             cameraShot: 'Shot Kamera',
@@ -1101,13 +1070,13 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             onScreenText: 'Teks Pada Skrin (Kapsyen)',
             dialoguePlaceholder: 'Masukkan sebarang teks yang anda mahu muncul pada video.',
             dialogueAudio: 'Dialog Lisan (Suara Latar)',
-            dialogueAudioPlaceholder: 'Masukkan dialog yang tepat untuk dituturkan oleh AI.',
+            dialogueAudioPlaceholder: 'Masukkan dialog tepat untuk dituturkan oleh AI.',
             voiceoverLanguage: 'Bahasa Suara Latar',
-            dialogueAudioNote: 'Suara latar hanya disokong oleh <strong>model Veo 3.0</strong> dan berfungsi paling baik dengan Bahasa Inggeris.',
+            dialogueAudioNote: 'Suara latar hanya disokong oleh <strong>model Veo 3.0</strong> dan berfungsi terbaik dengan Bahasa Inggeris.',
             generateButton: 'Jana Video',
             resetButton: 'Set Semula',
             error: 'Penjanaan Gagal',
-            outputPlaceholder: 'Video janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Video yang anda jana akan muncul di sini.',
         },
         productAdView: {
             title: 'Jalan Cerita Iklan Produk',
@@ -1115,7 +1084,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             uploadProduct: 'Muat Naik Foto Produk',
             productDescription: 'Penerangan Produk',
             productDescriptionPlaceholder: 'cth., Biji kopi organik dari Brazil, asal tunggal, aroma kaya...',
-            creativeDirection: 'Hala Tuju Kreatif',
+            creativeDirection: 'Arahan Kreatif',
             vibe: 'Suasana / Mood',
             lighting: 'Pencahayaan',
             contentType: 'Jenis Kandungan',
@@ -1123,20 +1092,20 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             generateButton: 'Jana Jalan Cerita',
             resetButton: 'Set Semula',
             loading: 'Sedang menjana jalan cerita anda...',
-            outputPlaceholder: 'Papan cerita janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Papan cerita yang anda jana akan muncul di sini.',
         },
         productReviewView: {
             title: 'Langkah 1: Papan Cerita Video AI',
-            subtitle: 'Jana skrip video ulasan produk 4 babak yang lengkap dan konsep visual.',
+            subtitle: 'Jana skrip dan konsep visual video ulasan produk 4-babak yang lengkap.',
             includeModel: 'Sertakan Model?',
             productOnly: 'Tidak, Produk Sahaja',
             withModel: 'Ya, Dengan Model',
             uploadAssets: 'Muat Naik Aset Anda',
             productPhoto: 'Foto Produk',
             facePhoto: 'Foto Wajah Model',
-            productDescription: 'Penerangan Produk & Perkara Jualan Utama',
-            productDescriptionPlaceholder: 'cth., "Ini adalah serum anti-penuaan baharu. Perkara utama: mengurangkan kedutan dalam 7 hari, mengandungi asid hyaluronik, sesuai untuk kulit sensitif..."',
-            creativeDirectionForImages: 'Hala Tuju Kreatif untuk Imej',
+            productDescription: 'Penerangan Produk & Poin Jualan Utama',
+            productDescriptionPlaceholder: 'cth., "Ini adalah serum anti-penuaan baru. Poin utama: mengurangkan kedutan dalam 7 hari, mengandungi asid hialuronik, sesuai untuk kulit sensitif..."',
+            creativeDirectionForImages: 'Arahan Kreatif untuk Imej',
             contentType: 'Jenis Kandungan',
             outputLanguage: 'Bahasa Output',
             voiceover: 'Sertakan Skrip Suara Latar?',
@@ -1153,32 +1122,30 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             visualEffect: 'Kesan Visual',
             generateStoryboardButton: 'Jana Papan Cerita',
             resetButton: 'Set Semula Semua',
-            trialUsageStatus: `Penggunaan Percubaan: {used}/${TRIAL_USAGE_LIMIT} papan cerita dijana.`,
-            trialLimitError: 'Anda telah mencapai had percubaan anda untuk ciri ini.',
             errorAllFields: 'Sila muat naik imej yang diperlukan dan berikan penerangan produk.',
             errorUnknown: 'Ralat tidak diketahui berlaku semasa mengemas kini penggunaan.',
-            outputTitle: 'Papan Cerita yang Dijana',
+            outputTitle: 'Papan Cerita Dijana',
             downloadText: 'Muat Turun Teks',
             scene: 'Babak',
-            outputPlaceholder: 'Papan cerita janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Papan cerita yang anda jana akan muncul di sini.',
             step2Title: 'Langkah 2: Jana Imej Babak',
-            step2Subtitle: 'Cipta visual unik untuk setiap babak dari papan cerita anda.',
+            step2Subtitle: 'Cipta visual yang unik untuk setiap babak dari papan cerita anda.',
             createImagesButton: 'Cipta Semua 4 Imej',
             generatingImagesButton: 'Ini mungkin mengambil masa seminit...',
-            generatedImages: 'Imej yang Dijana',
+            generatedImages: 'Imej Dijana',
             step3Title: 'Langkah 3: Jana Video Babak',
-            step3Subtitle: 'Animasikan imej babak janaan anda menjadi klip video.',
+            step3Subtitle: 'Animasikan imej babak yang anda jana menjadi klip video.',
             videoGenerationSettings: 'Tetapan Penjanaan Video',
             aspectRatio: 'Nisbah Aspek',
             resolution: 'Resolusi',
             voiceoverLanguage: 'Bahasa Suara Latar',
             createBatchVideoButton: 'Cipta Semua 4 Video',
             createBatchVideoButtonHelp: 'Proses ini boleh mengambil masa beberapa minit. Anda juga boleh menjana video satu persatu.',
-            generatedVideosTitle: 'Video yang Dijana',
+            generatedVideosTitle: 'Video Dijana',
         },
         voiceStudioView: {
             title: 'Studio Suara AI',
-            subtitle: 'Tukar teks kepada pertuturan berkualiti tinggi dan berbunyi semula jadi.',
+            subtitle: 'Tukar teks menjadi ucapan berkualiti tinggi yang berbunyi semula jadi.',
             writeScript: 'Tulis Skrip Anda',
             scriptPlaceholder: 'Masukkan teks anda di sini...',
             characters: 'aksara',
@@ -1189,14 +1156,14 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             volume: 'Kelantangan',
             generateButton: 'Jana Audio',
             resetButton: 'Set Semula',
-            loading: 'Menjana audio, sila tunggu...',
+            loading: 'Sedang menjana audio, sila tunggu...',
             apiErrorTitle: 'Kebenaran API Diperlukan',
-            apiErrorBody: 'Ciri ini menggunakan API Text-to-Speech Google, yang memerlukan pengaktifan manual dalam projek Google Cloud anda.',
-            apiErrorButton: 'Aktifkan API Cloud TTS',
+            apiErrorBody: 'Ciri ini menggunakan API Teks-ke-Ucapan Google, yang memerlukan pengaktifan manual dalam projek Google Cloud anda.',
+            apiErrorButton: 'Aktifkan Cloud TTS API',
             apiErrorHelp: 'Selepas mengaktifkan, ia mungkin mengambil masa beberapa minit untuk berkuat kuasa.',
             genericError: 'Penjanaan Gagal',
             downloadAudio: 'Muat Turun Audio',
-            outputPlaceholder: 'Audio janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Audio yang anda jana akan muncul di sini.',
         },
         productPhotoView: {
             title: 'Sesi Foto Produk AI',
@@ -1204,9 +1171,9 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             uploadProduct: 'Muat Naik Imej Produk Anda',
             uploadTitle: 'Muat Naik Foto Produk (dengan latar belakang)',
             customPrompt: 'Prompt Tersuai (Pilihan)',
-            customPromptPlaceholder: 'Jika anda mahu kawalan penuh, tulis prompt terperinci anda di sini. Ini akan mengatasi pilihan hala tuju kreatif di bawah.',
-            customPromptHelp: 'Biarkan kosong untuk menggunakan pilihan hala tuju kreatif.',
-            creativeDirection: 'Hala Tuju Kreatif',
+            customPromptPlaceholder: 'Jika anda mahu kawalan penuh, tulis prompt terperinci anda di sini. Ini akan mengatasi pilihan arahan kreatif di bawah.',
+            customPromptHelp: 'Biarkan kosong untuk menggunakan pilihan arahan kreatif.',
+            creativeDirection: 'Arahan Kreatif',
             backgroundVibe: 'Latar Belakang / Suasana',
             artisticStyle: 'Gaya Artistik',
             lighting: 'Pencahayaan',
@@ -1221,20 +1188,20 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             aspectRatio: 'Nisbah Aspek',
             generateButton: 'Jana Foto',
             resetButton: 'Set Semula',
-            outputPlaceholder: 'Foto produk janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Foto produk yang anda jana akan muncul di sini.',
         },
         tiktokAffiliateView: {
             title: 'Sesi Foto Model AI',
             subtitle: 'Cipta foto model realistik yang menampilkan produk anda.',
-            assetAndModel: 'Aset & Pemilihan Model',
+            assetAndModel: 'Pemilihan Aset & Model',
             productPhoto: 'Foto Produk',
             productPhotoDesc: 'Imej produk yang jelas.',
             facePhoto: 'Wajah Model (Pilihan)',
-            facePhotoDesc: 'Gunakan wajah anda sendiri untuk menjadi model!',
+            facePhotoDesc: 'Guna wajah anda sendiri untuk menjadi model!',
             customPrompt: 'Prompt Tersuai (Pilihan)',
-            customPromptPlaceholder: 'Jika anda mahu kawalan penuh, tulis prompt terperinci anda di sini. Ini akan mengatasi pilihan hala tuju kreatif di bawah.',
-            customPromptHelp: 'Biarkan kosong untuk menggunakan pilihan hala tuju kreatif.',
-            creativeDirection: 'Hala Tuju Kreatif',
+            customPromptPlaceholder: 'Jika anda mahu kawalan penuh, tulis prompt terperinci anda di sini. Ini akan mengatasi pilihan arahan kreatif di bawah.',
+            customPromptHelp: 'Biarkan kosong untuk menggunakan pilihan arahan kreatif.',
+            creativeDirection: 'Arahan Kreatif',
             gender: 'Jantina Model',
             female: 'Perempuan',
             male: 'Lelaki',
@@ -1242,7 +1209,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             artisticStyle: 'Gaya Artistik',
             lighting: 'Pencahayaan',
             cameraShot: 'Shot Kamera',
-            bodyPose: 'Pose Badan',
+            bodyPose: 'Posisi Badan',
             vibe: 'Latar Belakang / Suasana',
             composition: 'Komposisi',
             lensType: 'Jenis Lensa',
@@ -1253,7 +1220,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             aspectRatio: 'Nisbah Aspek',
             generateButton: 'Jana Foto',
             resetButton: 'Set Semula',
-            outputPlaceholder: 'Foto model janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Foto model yang anda jana akan muncul di sini.',
         },
         eCourseView: {
             platformUpdatesTitle: "Kemas Kini Platform",
@@ -1294,7 +1261,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             productDetailsLabel: 'Butiran Produk/Perkhidmatan',
             productDetailsPlaceholder: 'cth., Mesin kopi mewah yang membancuh dalam 30 saat...',
             targetAudienceLabel: 'Sasaran Audiens (Pilihan)',
-            targetAudiencePlaceholder: 'cth., Golongan profesional yang sibuk, pencinta kopi...',
+            targetAudiencePlaceholder: 'cth., Profesional yang sibuk, pencinta kopi...',
             keywordsLabel: 'Kata Kunci untuk Disertakan (Pilihan)',
             keywordsPlaceholder: 'cth., cepat, premium, kopi pagi',
             toneLabel: 'Nada Suara',
@@ -1302,15 +1269,15 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             generateButton: 'Jana Teks',
             resetButton: 'Set Semula',
             loading: 'Sedang menjana teks anda...',
-            outputPlaceholder: 'Teks pemasaran janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Teks pemasaran yang anda jana akan muncul di sini.',
         },
         backgroundRemoverView: {
             title: 'Pembuang Latar Belakang AI',
-            subtitle: 'Buang latar belakang dari mana-mana imej secara automatik.',
+            subtitle: 'Buang latar belakang dari sebarang imej secara automatik.',
             uploadTitle: 'Muat Naik Imej',
             removeButton: 'Buang Latar Belakang',
             resetButton: 'Set Semula',
-            loading: 'Membuang latar belakang...',
+            loading: 'Sedang membuang latar belakang...',
             original: 'Asal',
             result: 'Hasil (Lutsinar)',
             outputPlaceholder: 'Hasil anda akan muncul di sini.',
@@ -1323,25 +1290,25 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             colorsButton: 'Tingkatkan Warna',
             enhanceButton: 'Tingkatkan Imej',
             resetButton: 'Set Semula',
-            loading: 'Meningkatkan imej...',
+            loading: 'Sedang meningkatkan imej...',
             original: 'Asal',
             enhanced: 'Ditingkatkan',
-            outputPlaceholder: 'Imej yang ditingkatkan akan muncul di sini.',
+            outputPlaceholder: 'Imej yang dipertingkatkan akan muncul di sini.',
         },
         contentIdeasView: {
             title: 'Penjana Idea Kandungan AI',
-            subtitle: 'Temui idea kandungan yang sedang tren dan menarik untuk sebarang topik.',
+            subtitle: 'Temui idea kandungan yang popular dan menarik untuk sebarang topik.',
             topicLabel: 'Topik atau Niche Anda',
             topicPlaceholder: 'cth., "pemasaran digital untuk perniagaan kecil" atau "resipi sarapan sihat"',
             outputLanguage: 'Bahasa Output',
             generateButton: 'Jana Idea',
             resetButton: 'Set Semula',
             loading: 'Mencari idea...',
-            outputPlaceholder: 'Idea kandungan janaan anda akan muncul di sini.',
+            outputPlaceholder: 'Idea kandungan yang anda jana akan muncul di sini.',
         },
         staffMonoklixView: {
             title: 'Staf MONOklix',
-            subtitle: 'Pasukan AI pakar anda untuk tugas pemasaran.',
+            subtitle: 'Pasukan AI pakar anda untuk tugas-tugas pemasaran.',
             inputFor: 'Input untuk',
             outputLanguage: 'Bahasa Output',
             generateButton: 'Jana',
@@ -1386,22 +1353,22 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             requestButton: 'Minta Kunci Baru',
             noKeys: 'Tiada kunci baru yang tersedia pada masa ini. Sila cuba lagi nanti.',
             fetchError: 'Gagal mendapatkan kunci: {error}',
-            applyError: 'Gagal menggunakan kunci: {error}',
+            applyError: 'Gagal mengaplikasi kunci: {error}',
             claimError: 'Gagal menuntut kunci: {error}',
-            successMessage: 'Kunci berjaya dituntut dan digunakan!',
-            availableKeysTitle: 'Kunci yang Tersedia',
-            modalSubtitle: 'Jika anda menghadapi masalah, tuntut kunci sementara yang baru di bawah.',
-            autoSelectButton: 'Auto Kunci Baru',
+            successMessage: 'Kunci berjaya dituntut dan diaplikasi!',
+            availableKeysTitle: 'Kunci Tersedia',
+            modalSubtitle: 'Jika anda mempunyai isu, tuntut kunci sementara yang baru di bawah.',
+            autoSelectButton: 'Kunci Baru Auto',
             showListButton: 'Tunjuk Senarai Manual',
-            autoSelectSuccess: 'Kunci API baru yang sihat telah digunakan secara automatik!',
-            autoSelectFailed: 'Pilihan automatik gagal. Tiada kunci API yang sihat ditemui. Sila cuba senarai manual.',
+            autoSelectSuccess: 'Kunci API baru yang sihat telah diaplikasi secara automatik!',
+            autoSelectFailed: 'Pilih-auto gagal. Tiada kunci API yang sihat ditemui. Sila cuba senarai manual.',
         },
         socialPostStudioView: {
             title: 'Studio Pos Sosial',
             subtitle: 'Gubah kandungan media sosial anda dan hantar ke webhook automasi anda.',
             textContentLabel: 'Kandungan Teks / Kapsyen',
             generateWithAi: 'Jana dengan AI',
-            textContentPlaceholder: 'Tulis kandungan pos anda di sini, atau gunakan penulis AI...',
+            textContentPlaceholder: 'Tulis kandungan pos anda di sini, atau guna penulis AI...',
             hashtagsLabel: 'Hashtag',
             mediaLabel: 'Media (1 Video atau sehingga 4 Imej)',
             noMedia: 'Tiada media dipilih.',
@@ -1417,8 +1384,8 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             sending: 'Menghantar...',
             sendSuccess: 'Pos berjaya dihantar ke webhook anda!',
             sendError: 'Gagal menghantar pos.',
-            noWebhookTitle: 'Webhook Tidak Dikonfigurasikan',
-            noWebhookBody: 'Untuk menggunakan Studio Pos Sosial, anda mesti menyediakan URL webhook terlebih dahulu di Tetapan > API & Integrasi.',
+            noWebhookTitle: 'Webhook Tidak Dikonfigurasi',
+            noWebhookBody: 'Untuk menggunakan Studio Pos Sosial, anda mesti menetapkan URL webhook terlebih dahulu di Tetapan > API & Integrasi.',
             aiWriterModalTitle: 'Penulis AI',
             selectAgent: 'Pilih Ejen AI',
             agents: {
@@ -1427,7 +1394,7 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
                 musa: { name: 'Musa', description: 'Penjenamaan Peribadi' },
             },
             outputLanguage: 'Bahasa Output',
-            agentDescription: 'Terangkan secara ringkas topik pos anda',
+            agentDescription: 'Terangkan topik pos anda secara ringkas',
             agentInputPlaceholder: 'cth., "Produk kopi baru yang sihat dan memberi tenaga"',
             generating: 'Menjana...',
             generate: 'Jana Teks',
@@ -1442,7 +1409,10 @@ Untuk membuka kunci ini dan semua ciri canggih yang lain, sila naik taraf ke ver
             modalSelectionRule: 'Anda boleh memilih sehingga 4 imej ATAU 1 video.',
             modalConfirm: 'Sahkan Pilihan',
         },
-    }
-}
+    },
+};
 
-export const getTranslations = (language: Language) => translations[language];
+// FIX: Add the missing 'getTranslations' function and export it.
+export const getTranslations = (language: Language) => {
+    return translations[language] || translations.en;
+};

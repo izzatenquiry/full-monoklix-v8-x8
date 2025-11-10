@@ -5,7 +5,6 @@ import { MODELS } from './aiConfig';
 import { APP_VERSION } from './appConfig';
 
 type UserProfileData = Database['public']['Tables']['users']['Row'];
-type TrialUserProfileData = Database['public']['Tables']['trial_user']['Row'];
 
 /**
  * Helper to extract a readable error message from various error types.
@@ -60,24 +59,6 @@ const mapProfileToUser = (
   };
 };
 
-/**
- * Maps a trial user profile from the database to the application's User type.
- */
-const mapTrialProfileToUser = (profile: TrialUserProfileData): User => {
-  return {
-    id: `trial-${profile.id}`, // Create a unique ID format for trial users
-    email: profile.email,
-    createdAt: profile.created_at,
-    username: profile.username || profile.email.split('@')[0],
-    fullName: profile.username,
-    phone: profile.phone,
-    role: 'user', // Trial users have 'user' role
-    status: 'trial', // Their status is 'trial'
-    apiKey: null, // Trial users don't have personal API keys
-    storyboardUsageCount: profile.storyboard_usage_count,
-  };
-};
-
 // Log in a user by checking their email directly against the database.
 export const loginUser = async (email: string): Promise<LoginResult> => {
     const cleanedEmail = email.trim().toLowerCase();
@@ -85,34 +66,18 @@ export const loginUser = async (email: string): Promise<LoginResult> => {
         return { success: false, message: 'Please enter your email address.' };
     }
     
-    // 1. Check for a full user (lifetime, admin, etc.) first
     const { data: userData, error: userError } = await supabase
         .from('users')
         .select('*')
         .eq('email', cleanedEmail)
         .single();
     
-    // If a user is found in the main 'users' table, they are a full user.
     if (userData && !userError) {
         const typedData = userData as UserProfileData;
         const user = mapProfileToUser(typedData);
         return { success: true, user };
     }
 
-    // 2. If not a full user, check for a trial user
-    const { data: trialUserData, error: trialUserError } = await supabase
-        .from('trial_user')
-        .select('*')
-        .eq('email', cleanedEmail)
-        .single();
-
-    if (trialUserData && !trialUserError) {
-        const typedData = trialUserData as TrialUserProfileData;
-        const user = mapTrialProfileToUser(typedData);
-        return { success: true, user };
-    }
-    
-    // 3. If not found in either table
     return { success: false, message: 'This email is not registered. Please check your email or register for an account.' };
 };
 
@@ -476,13 +441,6 @@ export const logActivity = async (
         return;
     }
 
-    // For the demo site, trial users are not logged to the main activity_log
-    // because their IDs are not UUIDs and would cause a foreign key constraint violation.
-    if (user.status === 'trial') {
-        console.log("Skipping Supabase activity log for trial user.");
-        return;
-    }
-
     try {
         const baseLog = {
             user_id: user.id,
@@ -637,41 +595,7 @@ export const saveUserApiKey = async (userId: string, apiKey: string): Promise<{ 
     return { success: true, user: updatedProfile };
 };
 
-export const incrementStoryboardUsage = async (user: User): Promise<{ success: true; user: User } | { success: false; message: string }> => {
-    try {
-        if (user.id.startsWith('trial-')) {
-            const trialUserId = parseInt(user.id.replace('trial-', ''), 10);
-            if (isNaN(trialUserId)) throw new Error("Invalid trial user ID format.");
-            
-            const newCount = Number(user.storyboardUsageCount || 0) + 1;
-
-            const { data: updatedData, error: updateError } = await supabase
-                .from('trial_user')
-                .update({ storyboard_usage_count: newCount })
-                .eq('id', trialUserId)
-                .select()
-                .single();
-
-            if (updateError) throw updateError;
-            
-            const updatedUser: User = { ...user, storyboardUsageCount: newCount };
-            return { success: true, user: updatedUser };
-
-        } else {
-            return { success: true, user };
-        }
-
-    } catch (error) {
-        const message = getErrorMessage(error);
-        console.error("Failed to increment storyboard usage:", message);
-        return { success: false, message };
-    }
-};
-
 export const incrementImageUsage = async (user: User): Promise<{ success: true; user: User } | { success: false; message: string }> => {
-    if (user.id.startsWith('trial-')) {
-        return { success: true, user };
-    }
     try {
         const newCount = Number(user.totalImage || 0) + 1;
 
@@ -694,9 +618,6 @@ export const incrementImageUsage = async (user: User): Promise<{ success: true; 
 };
 
 export const incrementVideoUsage = async (user: User): Promise<{ success: true; user: User } | { success: false; message: string }> => {
-    if (user.id.startsWith('trial-')) {
-       return { success: true, user };
-    }
     try {
         const newCount = Number(user.totalVideo || 0) + 1;
 
@@ -724,10 +645,6 @@ export const incrementVideoUsage = async (user: User): Promise<{ success: true; 
  * @param {string} userId - The ID of the user to update.
  */
 export const updateUserLastSeen = async (userId: string): Promise<void> => {
-    // Trial users are not in the 'users' table, so we skip this for them.
-    if (userId.startsWith('trial-')) {
-        return;
-    }
     try {
         const { error } = await supabase
             .from('users')

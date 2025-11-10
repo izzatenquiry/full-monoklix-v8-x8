@@ -78,8 +78,8 @@ export interface TutorialContent {
 }
 
 export type UserRole = 'admin' | 'user';
-// FIX: Expanded UserStatus to include 'subscription' status.
-export type UserStatus = 'lifetime' | 'admin' | 'trial' | 'inactive' | 'pending_payment' | 'subscription';
+// FIX: Expanded UserStatus to include 'subscription' and 'trial' statuses.
+export type UserStatus = 'lifetime' | 'admin' | 'inactive' | 'pending_payment' | 'subscription' | 'trial';
 
 export interface User {
   id: string; // from Supabase auth
@@ -95,7 +95,6 @@ export interface User {
   username: string; // Keeping this for consistency in UI
   subscriptionExpiry?: number; // Kept for legacy trial users, but new registrations won't use it.
   webhookUrl?: string | null;
-  storyboardUsageCount?: number;
   totalImage?: number;
   totalVideo?: number;
   lastSeenAt?: string;

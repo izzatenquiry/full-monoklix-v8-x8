@@ -13,5 +13,3 @@ export const MODELS = {
     { id: 'veo-3.1-generate-001', label: 'Veo 3 (Standard)' },
   ],
 };
-
-export const TRIAL_USAGE_LIMIT = 5;

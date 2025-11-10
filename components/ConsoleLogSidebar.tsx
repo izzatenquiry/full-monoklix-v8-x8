@@ -69,7 +69,7 @@ const ConsoleLogSidebar: React.FC<ConsoleLogSidebarProps> = ({ isOpen, onClose }
         <div className="flex items-center justify-between mb-4 flex-shrink-0">
           <h2 className="text-lg font-bold flex items-center gap-2">
             <TerminalIcon className="w-5 h-5" />
-            Console Log
+            Console Status
           </h2>
           <div className="flex items-center gap-2">
             <button onClick={clearLogs} className="p-2 text-neutral-500 hover:text-neutral-800 dark:hover:text-white" aria-label="Clear logs" title="Clear logs">

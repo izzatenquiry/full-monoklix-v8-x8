@@ -24,7 +24,6 @@ import { GetStartedView } from './components/views/GetStartedView';
 import AiPromptLibrarySuiteView from './components/views/AiPromptLibrarySuiteView';
 import SocialPostStudioView from './components/views/SocialPostStudioView';
 import eventBus from './services/eventBus';
-import { TRIAL_USAGE_LIMIT } from './services/aiConfig';
 import ApiKeyStatus from './components/ApiKeyStatus';
 import { clearLogs } from './services/aiLogService';
 import { clearVideoCache } from './services/videoCacheService';
@@ -455,7 +454,7 @@ const App: React.FC = () => {
 
     // Effect for real-time remote logout listener
     useEffect(() => {
-        if (!currentUser?.id || currentUser.status === 'trial') return;
+        if (!currentUser?.id) return;
 
         const channel = supabase
             .channel(`user-session-channel-${currentUser.id}`)
@@ -485,15 +484,11 @@ const App: React.FC = () => {
         return () => {
             supabase.removeChannel(channel);
         };
-    }, [currentUser?.id, currentUser?.status, handleLogout]);
+    }, [currentUser?.id, handleLogout]);
 
     const assignTokenProcess = useCallback(async (): Promise<{ success: boolean; error: string | null; }> => {
         if (!currentUser || isAssigningTokenRef.current) {
             return { success: false, error: "Process is already running or user not available." };
-        }
-        
-        if (currentUser.status === 'trial') {
-            return { success: true, error: null }; // No token needed for trial users
         }
         
         isAssigningTokenRef.current = true;
@@ -702,12 +697,7 @@ const App: React.FC = () => {
   if (isShowingWelcome) {
     return <WelcomeAnimation onAnimationEnd={() => {
         setIsShowingWelcome(false);
-        // Redirect trial users directly to their main feature
-        if (currentUser?.status === 'trial') {
-            setActiveView('ai-video-suite');
-        } else {
-            setActiveView('home');
-        }
+        setActiveView('home');
     }} />;
   }
   
@@ -733,35 +723,6 @@ const App: React.FC = () => {
       isBlocked = true;
       blockMessage = { title: "Subscription Expired", body: "Your plan has expired. To continue using all features, please renew your subscription. [BUTTON]Renew Now[URL]https://monoklix.com/step/monoklix-checkout/" };
   }
-  // Apply restrictions for trial users
-  else if (currentUser.status === 'trial') {
-    const usageCount = currentUser.storyboardUsageCount || 0;
-    const allowedViews: View[] = ['home', 'get-started', 'gallery'];
-    if (usageCount < TRIAL_USAGE_LIMIT) {
-        allowedViews.push('ai-video-suite');
-    }
-
-    if (!allowedViews.includes(activeView)) {
-        isBlocked = true;
-        blockMessage = { 
-            title: "⚠️ Trial Mode Ended", 
-            body: usageCount >= TRIAL_USAGE_LIMIT 
-                ? `You have used up your trial credits for this feature.
-To continue enjoying full access to all MONOklix Studio features, please upgrade your account to the full version. 🚀
-[BUTTON]Register for a Full Account[URL]https://monoklix.com/step/monoklix-checkout/
-After upgrading, you will get unlimited access to all features including:
-
-Unlimited storyboard video creation 🎬
-Full AI & VEO integration ⚡
-Unrestricted project saving and exporting 📂
-
-Thank you for trying MONOklix Studio!`
-                : `This feature is not available in trial mode.
-To unlock this and all other advanced features, please upgrade to the full version.
-[BUTTON]Register for a Full Account[URL]https://monoklix.com/step/monoklix-checkout/`
-        };
-    }
-  } 
   // Block any other status (e.g., inactive, pending_payment)
   else {
       isBlocked = true;

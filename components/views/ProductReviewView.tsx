@@ -8,8 +8,8 @@ import Spinner from '../common/Spinner';
 import { StarIcon, DownloadIcon, ImageIcon, VideoIcon, WandIcon, AlertTriangleIcon, RefreshCwIcon, XIcon, UserIcon, TikTokIcon } from '../Icons';
 import { getProductReviewImagePrompt, getProductReviewStoryboardPrompt, getImageEditingPrompt } from '../../services/promptManager';
 import { type User } from '../../types';
-import { MODELS, TRIAL_USAGE_LIMIT } from '../../services/aiConfig';
-import { incrementStoryboardUsage, incrementVideoUsage, incrementImageUsage } from '../../services/userService';
+import { MODELS } from '../../services/aiConfig';
+import { incrementVideoUsage, incrementImageUsage } from '../../services/userService';
 import { addLogEntry } from '../../services/aiLogService';
 import { triggerUserWebhook } from '../../services/webhookService';
 import PreviewModal from '../common/PreviewModal';
@@ -282,14 +282,6 @@ const ProductReviewView: React.FC<ProductReviewViewProps> = ({ onReEdit, onCreat
         prompt: `Product Review: ${productDesc.substring(0, 50)}...`,
         result: result,
       });
-
-      // Increment usage count for the user
-      const updateResult = await incrementStoryboardUsage(currentUser);
-      if (updateResult.success === false) {
-          setStoryboardError(updateResult.message || "An unknown error occurred while updating usage.");
-      } else {
-          onUserUpdate(updateResult.user);
-      }
       
     } catch (e) {
       const userFriendlyMessage = handleApiError(e);
@@ -742,11 +734,7 @@ const ProductReviewView: React.FC<ProductReviewViewProps> = ({ onReEdit, onCreat
     
     sessionStorage.removeItem(SESSION_KEY);
   }, []);
-
-  const isTrialUser = currentUser.status === 'trial';
-  const usageCount = currentUser.storyboardUsageCount || 0;
-  const canGenerate = !isTrialUser || usageCount < TRIAL_USAGE_LIMIT;
-
+  
   const step2Disabled = parsedScenes.length === 0;
   const step3Disabled = !generatedImages.some(img => img);
   
@@ -875,18 +863,13 @@ const ProductReviewView: React.FC<ProductReviewViewProps> = ({ onReEdit, onCreat
                 </div>
             </div>
             <div className="flex gap-4 items-center">
-                <button onClick={handleGenerate} disabled={isLoading || !canGenerate} className="w-full bg-primary-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 flex-grow">
+                <button onClick={handleGenerate} disabled={isLoading} className="w-full bg-primary-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 flex-grow">
                     {isLoading ? <Spinner /> : "Generate Storyboard"}
                 </button>
                  <button onClick={handleReset} disabled={isLoading} className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 font-semibold py-3 px-4 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors">
                     Reset
                 </button>
             </div>
-            {isTrialUser && (
-                <div className={`mt-2 text-center text-sm font-semibold p-2 rounded-md ${canGenerate ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
-                    {canGenerate ? `Trial Usage: ${usageCount}/${TRIAL_USAGE_LIMIT} storyboards generated.` : 'You have reached your trial limit for this feature.'}
-                </div>
-            )}
             {storyboardError && <p className="text-red-500 text-center mt-2">{storyboardError}</p>}
           </div>
           {/* Right Column: Storyboard Output */}

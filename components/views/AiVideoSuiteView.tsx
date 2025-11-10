@@ -35,21 +35,13 @@ interface AiVideoSuiteViewProps {
 const AiVideoSuiteView: React.FC<AiVideoSuiteViewProps> = ({ preset, clearPreset, onReEdit, onCreateVideo, currentUser, onUserUpdate, language }) => {
     const [activeTab, setActiveTab] = useState<TabId>('generation');
 
-    const allTabs: Tab<TabId>[] = [
+    const tabs: Tab<TabId>[] = [
         { id: 'generation', label: "Video Generation" },
         { id: 'storyboard', label: "Video Storyboard" },
         { id: 'batch', label: "Batch Processor", adminOnly: true },
         { id: 'combiner', label: "Video Combiner", adminOnly: true },
         { id: 'voice', label: "Voice Studio" }
     ];
-
-    const tabs = useMemo(() => {
-        // FIX: Changed check from `currentUser.role` to `currentUser.status` to correctly identify trial users.
-        if (currentUser.status === 'trial') {
-            return allTabs.filter(tab => tab.id === 'storyboard');
-        }
-        return allTabs;
-    }, [currentUser.status, allTabs]);
 
     useEffect(() => {
         if (preset) {
@@ -58,13 +50,10 @@ const AiVideoSuiteView: React.FC<AiVideoSuiteViewProps> = ({ preset, clearPreset
     }, [preset]);
     
     useEffect(() => {
-        // FIX: Changed check from `currentUser.role` to `currentUser.status` to correctly identify trial users.
-        if (currentUser.status === 'trial' && activeTab !== 'storyboard') {
-            setActiveTab('storyboard');
-        } else if (currentUser.role !== 'admin' && (activeTab === 'batch' || activeTab === 'combiner')) {
+        if (currentUser.role !== 'admin' && (activeTab === 'batch' || activeTab === 'combiner')) {
             setActiveTab('generation');
         }
-    }, [currentUser.role, currentUser.status, activeTab]);
+    }, [currentUser.role, activeTab]);
 
     const renderActiveTabContent = () => {
         switch (activeTab) {

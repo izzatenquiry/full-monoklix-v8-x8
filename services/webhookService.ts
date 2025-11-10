@@ -72,10 +72,6 @@ export const triggerUserWebhook = async (
         return;
     }
 
-    if (user.status === 'trial') {
-        return; // Silently ignore for trial users
-    }
-    
     const { data: profile, error } = await supabase
         .from('users')
         .select('webhook_url')
@@ -131,10 +127,6 @@ export const sendSocialPostToWebhook = async (
     const user = getCurrentUserFromSession();
     if (!user?.id) {
         return { success: false, message: "User not authenticated." };
-    }
-
-    if (user.status === 'trial') {
-        return { success: false, message: "Webhooks are not available for trial accounts." };
     }
 
     const { data: profile, error } = await supabase
@@ -218,10 +210,6 @@ export const sendTestUserWebhook = async (): Promise<{ success: boolean; message
         return { success: false, message: "You are not logged in." };
     }
 
-    if (user.status === 'trial') {
-        return { success: false, message: "Webhooks are not available for trial accounts." };
-    }
-
     const { data: profile, error } = await supabase
         .from('users')
         .select('webhook_url')
@@ -256,42 +244,6 @@ export const sendTestUserWebhook = async (): Promise<{ success: boolean; message
         console.error("Webhook test failed:", e);
         return { success: false, message: 'Test failed. Could not send request. Check console for details.' };
     }
-};
-
-export const sendRegistrationToWebhook = async (
-    fullName: string,
-    email: string,
-    phone: string
-): Promise<{ success: boolean; message: string }> => {
-    // This function now saves the trial user directly to the database.
-    const { error } = await supabase
-        .from('trial_user')
-        .insert({
-            username: fullName,
-            email: email.trim().toLowerCase(),
-            phone: phone,
-            storyboard_usage_count: 0 // Initialize usage count
-        });
-
-    if (error) {
-        console.error('Failed to register trial user:', error);
-        if (error.code === '23505') { // unique constraint violation
-            return { success: false, message: "This email is already registered as a trial user." };
-        }
-        return { success: false, message: `Failed to submit registration: ${error.message}` };
-    }
-    
-    // Optional: Keep an external webhook call for other automations if needed.
-    const externalWebhookUrl = "https://n8n.1za7.com/webhook/register-new-users";
-    if (externalWebhookUrl) {
-        fetch(externalWebhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fullName, email, phone, timestamp: new Date().toISOString() })
-        }).catch(e => console.error("Optional: Failed to call external registration webhook:", e));
-    }
-
-    return { success: true, message: "Registration submitted successfully!" };
 };
 
 export const triggerErrorWebhook = async (error: unknown) => {

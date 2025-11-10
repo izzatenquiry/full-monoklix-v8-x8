@@ -3,21 +3,20 @@ import { type View, type NavItem, type User, UserStatus } from '../types';
 import {
   ImageIcon, VideoIcon, SettingsIcon, BookOpenIcon, LogoutIcon, GalleryIcon, LogoIcon, XIcon, LibraryIcon, FileTextIcon, GraduationCapIcon, TrendingUpIcon, RobotIcon, MegaphoneIcon, DatabaseIcon, WhatsAppIcon
 } from './Icons';
-import { TRIAL_USAGE_LIMIT } from '../services/aiConfig';
 import { APP_VERSION } from '../services/appConfig';
 
 
 const getNavItems = (): NavItem[] => [
   { id: 'home', label: "Home", description: "Learn Content Strategy", section: 'main', icon: BookOpenIcon, isSpecial: true },
   { id: 'get-started', label: "Get Started Guide", section: 'main', icon: GraduationCapIcon },
-  { id: 'ai-text-suite', label: "AI Content Idea", section: 'free', icon: FileTextIcon, hideForStatus: ['trial'] },
-  { id: 'ai-image-suite', label: "AI Image Suite", section: 'free', icon: ImageIcon, hideForStatus: ['trial'] },
+  { id: 'ai-text-suite', label: "AI Content Idea", section: 'free', icon: FileTextIcon },
+  { id: 'ai-image-suite', label: "AI Image Suite", section: 'free', icon: ImageIcon },
   { id: 'ai-video-suite', label: "AI Video & Voice", section: 'free', icon: VideoIcon },
   { id: 'social-post-studio', label: "Social Post Studio", section: 'free', icon: MegaphoneIcon, isNew: true, roles: ['admin'] },
   { id: 'gallery', label: "Gallery & History", section: 'free', icon: GalleryIcon },
-  { id: 'ai-prompt-library-suite', label: "Prompt Library", section: 'free', icon: LibraryIcon, isNew: true, hideForStatus: ['trial'] },
-  { id: 'support-group', label: "MONOklix Support Group", section: 'bottom', icon: WhatsAppIcon, isExternal: true, url: 'https://chat.whatsapp.com/Hk0uyuxk1QW820oxsRaPlW' },
-  { id: 'settings', label: "Settings", section: 'bottom', icon: SettingsIcon, roles: ['admin', 'user'], hideForStatus: ['trial'] },
+  { id: 'ai-prompt-library-suite', label: "Prompt Library", section: 'free', icon: LibraryIcon, isNew: true },
+  { id: 'support-group', label: "Support Group", section: 'bottom', icon: WhatsAppIcon, isExternal: true, url: 'https://chat.whatsapp.com/Hk0uyuxk1QW820oxsRaPlW' },
+  { id: 'settings', label: "Settings", section: 'bottom', icon: SettingsIcon, roles: ['admin', 'user'] },
   { id: 'logout', label: "Logout", section: 'bottom', icon: LogoutIcon }
 ];
 
@@ -47,8 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView, onLogout, 
   };
 
   const renderNavItem = (item: NavItem) => {
-    const isTrialAndUsedUp = currentUser.status === 'trial' && (currentUser.storyboardUsageCount || 0) >= TRIAL_USAGE_LIMIT;
-    const isDisabled = item.id === 'ai-video-suite' && isTrialAndUsedUp;
+    const isDisabled = false;
 
     if (item.id === 'support-group' && item.url) {
         return (
@@ -104,7 +102,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView, onLogout, 
         <item.icon className="w-5 h-5 mr-4" />
         <span className="flex-1">{item.label}</span>
         {item.isNew && !isDisabled && <span className="text-xs bg-primary-500/20 text-primary-500 dark:text-primary-400 font-bold px-2 py-0.5 rounded-full">New!</span>}
-        {isDisabled && item.id === 'ai-video-suite' && <span className="text-xs bg-red-500/20 text-red-500 font-bold px-2 py-0.5 rounded-full ml-auto">Limit</span>}
       </>
     );
 

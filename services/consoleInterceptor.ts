@@ -1,11 +1,16 @@
 import eventBus from './eventBus';
 
 export const initializeConsoleInterceptor = () => {
-  const levels: (keyof Console)[] = ['log', 'warn', 'error', 'debug'];
+  // FIX: Narrow the type of `levels` to only the specific keys we're intercepting.
+  const levels: ('log' | 'warn' | 'error' | 'debug')[] = ['log', 'warn', 'error', 'debug'];
 
   levels.forEach(level => {
     const original = console[level];
-    console[level] = (...args: any[]) => {
+    // FIX: Cast `console` to `any` to allow dynamic assignment.
+    // TypeScript has a very specific and complex type for the global `console` object,
+    // which prevents direct assignment to its methods. This is a standard way to
+    // monkey-patch objects in TypeScript without causing type errors.
+    (console as any)[level] = (...args: any[]) => {
       // Call original console method
       original.apply(console, args);
 

@@ -7,31 +7,6 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 export interface Database {
   public: {
     Tables: {
-      trial_user: {
-        Row: {
-          id: number
-          created_at: string
-          username: string
-          phone: string
-          email: string
-          storyboard_usage_count: number
-        }
-        Insert: {
-          id?: number
-          created_at?: string
-          username: string
-          phone: string
-          email: string
-          storyboard_usage_count?: number
-        }
-        Update: {
-          username?: string
-          phone?: string
-          email?: string
-          storyboard_usage_count?: number
-        }
-        Relationships: []
-      }
       master_api_key: {
         Row: {
           id: number
@@ -79,8 +54,8 @@ export interface Database {
           phone: string
           // FIX: Use string literals instead of circular enum reference for correct type inference
           role: 'admin' | 'user'
-          // FIX: Use string literals to include 'subscription' status
-          status: 'pending_payment' | 'trial' | 'inactive' | 'lifetime' | 'admin' | 'subscription'
+          // FIX: Use string literals to include 'subscription' and 'trial' statuses
+          status: 'pending_payment' | 'inactive' | 'lifetime' | 'admin' | 'subscription' | 'trial'
           api_key: string | null
           avatar_url: string | null
           subscription_expiry: string | null
@@ -99,10 +74,10 @@ export interface Database {
           full_name?: string | null
           email: string
           phone: string
-          // FIX: Use string literals to include 'subscription' status
+          // FIX: Use string literals to include 'subscription' and 'trial' statuses
           role?: 'admin' | 'user'
-          // FIX: Use string literals to include 'subscription' status
-          status?: 'pending_payment' | 'trial' | 'inactive' | 'lifetime' | 'admin' | 'subscription'
+          // FIX: Use string literals to include 'subscription' and 'trial' statuses
+          status?: 'pending_payment' | 'inactive' | 'lifetime' | 'admin' | 'subscription' | 'trial'
           api_key?: string | null
           avatar_url?: string | null
           subscription_expiry?: string | null
@@ -119,10 +94,10 @@ export interface Database {
           full_name?: string | null
           email?: string
           phone?: string
-          // FIX: Use string literals to include 'subscription' status
+          // FIX: Use string literals to include 'subscription' and 'trial' statuses
           role?: 'admin' | 'user'
-          // FIX: Use string literals to include 'subscription' status
-          status?: 'pending_payment' | 'trial' | 'inactive' | 'lifetime' | 'admin' | 'subscription'
+          // FIX: Use string literals to include 'subscription' and 'trial' statuses
+          status?: 'pending_payment' | 'inactive' | 'lifetime' | 'admin' | 'subscription' | 'trial'
           api_key?: string | null
           avatar_url?: string | null
           subscription_expiry?: string | null
@@ -277,7 +252,8 @@ export interface Database {
     }
     Enums: {
       user_role: 'admin' | 'user'
-      user_status: 'pending_payment' | 'trial' | 'inactive' | 'lifetime' | 'admin' | 'subscription'
+      // FIX: Add 'trial' to the user_status enum to match the UserStatus type.
+      user_status: 'pending_payment' | 'inactive' | 'lifetime' | 'admin' | 'subscription' | 'trial'
     }
     CompositeTypes: {}
   }
