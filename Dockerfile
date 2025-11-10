@@ -1,5 +1,5 @@
 # ---------- Build Stage ----------
-FROM node:18-bullseye-slim AS build
+FROM node:20-bullseye-slim AS build
 
 WORKDIR /app
 
@@ -16,11 +16,11 @@ COPY . .
 RUN npm run build
 
 # ---------- Production Stage ----------
-FROM node:18-bullseye-slim
+FROM node:20-bullseye-slim
 
 WORKDIR /app
 
-# Install serve untuk host SPA
+# Pasang serve untuk host SPA
 RUN npm install -g serve
 
 # Copy hasil build sahaja
